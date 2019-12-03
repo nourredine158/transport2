@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: fr.ufc.l3info.oprog.TestTicket
+-------------------------------------------------------------------------------
+Tests run: 23, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in fr.ufc.l3info.oprog.TestTicket
+testEntering2_KO(fr.ufc.l3info.oprog.TestTicket)  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at fr.ufc.l3info.oprog.TestTicket.testEntering2_KO(TestTicket.java:107)
+

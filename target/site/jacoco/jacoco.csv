@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Transport,fr.ufc.l3info.oprog,Network.InvalidNetworkException,0,6,0,0,0,1,0,1,0,1
+Transport,fr.ufc.l3info.oprog,Network,0,382,1,43,0,80,1,26,0,5
+Transport,fr.ufc.l3info.oprog,Network.FileFormatException,0,24,0,0,0,5,0,2,0,2
+Transport,fr.ufc.l3info.oprog,Station,0,118,0,8,0,32,0,14,0,10
+Transport,fr.ufc.l3info.oprog,Station.StationInformation,0,18,0,0,0,6,0,3,0,3

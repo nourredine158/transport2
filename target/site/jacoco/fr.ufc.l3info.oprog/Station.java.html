@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Station.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Transport</a> &gt; <a href="index.source.html" class="el_package">fr.ufc.l3info.oprog</a> &gt; <span class="el_source">Station.java</span></div><h1>Station.java</h1><pre class="source lang-java linenums">package fr.ufc.l3info.oprog;
+
+
+import java.util.HashMap;
+import java.util.Set;
+
+
+/**
+ * Class representing a station.
+ */
+public class Station {
+
+    public class StationInformation {
+
+        private int number;
+
+        private double distance;
+
+<span class="fc" id="L19">        public StationInformation(int number, double distance){</span>
+<span class="fc" id="L20">            this.number = number;</span>
+<span class="fc" id="L21">            this.distance = distance;</span>
+<span class="fc" id="L22">        }</span>
+
+        public double getDistance() {
+<span class="fc" id="L25">            return distance;</span>
+        }
+
+        public int getNumber() {
+<span class="fc" id="L29">            return number;</span>
+        }
+
+    }
+
+
+    private String name;
+    private HashMap&lt;String, StationInformation&gt; line;
+
+    /** Builds a station associated to no lines.
+     * @param _name the name of the station.
+     */
+<span class="fc" id="L41">    public Station(String _name) {</span>
+
+<span class="fc" id="L43">        name = _name;</span>
+<span class="fc" id="L44">        HashMap&lt;String, StationInformation&gt; line = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L45">        this.line = line;</span>
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Builds a station, initially associated to a given line with a given number.
+     * @param _name the name of the station
+     * @param _line the name of the line associated to the station
+     * @param _number the number of the station on the considered line
+     * @param _dist the distance of the station on the considered line
+     */
+<span class="fc" id="L55">    public Station(String _name, String _line, int _number, double _dist) {</span>
+<span class="fc" id="L56">        name = _name;</span>
+<span class="fc" id="L57">        StationInformation st = new StationInformation(_number, _dist);</span>
+<span class="fc" id="L58">        HashMap&lt;String, StationInformation&gt; line = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L59">        this.line = line;</span>
+<span class="fc" id="L60">        this.line.put(_line, st);</span>
+<span class="fc" id="L61">    }</span>
+
+
+    /**
+     * Adds a line to the current station, with the appropriate parameters.
+     * If the line already exists, the previous information are overwritten.
+     * @param _line the name of the line associated to the station
+     * @param _number the number of the station on the considered line
+     * @param _dist the distance of the station on the considered line
+     */
+    public void addLine(String _line, int _number, double _dist) {
+<span class="fc" id="L72">        StationInformation st = new StationInformation(_number, _dist);</span>
+<span class="fc" id="L73">        line.put(_line, st);</span>
+<span class="fc" id="L74">    }</span>
+
+
+    /**
+     * Removes a line from the station.
+     * @param _line the line to remove.
+     */
+    public void removeLine(String _line) {
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (line.containsKey(_line)) {</span>
+<span class="fc" id="L83">            line.remove(_line);</span>
+        }
+<span class="fc" id="L85">    }</span>
+
+
+    /**
+     * Retrieves the name of the station.
+     * @return the name of the station
+     */
+    public String getName() {
+<span class="fc" id="L93">        return this.name;</span>
+    }
+
+    /**
+     * Returns the number of the station on a given line.
+     * @param l The name of the line
+     * @return the # of the station for the given line,
+     *         or 0 if the line does not exist at the station.
+     */
+    public int getNumberForLine(String l) {
+        int num;
+
+<span class="fc" id="L105">        num = line.get(l).getNumber();</span>
+
+<span class="fc" id="L107">        return num;</span>
+    }
+
+
+    /**
+     * Returns the distance of the station on a given line.
+     * @param l The name of the line.
+     * @return the distance of the station w.r.t. the beginning of the line.
+     */
+    public double getDistanceForLine(String l) {
+        double dist;
+
+<span class="fc" id="L119">        dist = line.get(l).getDistance();</span>
+
+<span class="fc" id="L121">        return dist;</span>
+    }
+
+    /**
+     * Computes the set of lines associated to the station.
+     * @return a set containing the names of the lines that cross the station.
+     */
+    public Set&lt;String&gt; getLines() {
+<span class="fc" id="L129">        return line.keySet();</span>
+    }
+
+
+    @Override
+    public int hashCode() {
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        if (name == null){</span>
+<span class="fc" id="L136">            return 0;</span>
+        }
+<span class="fc" id="L138">        return name.hashCode() + name.length();</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (o instanceof Station){</span>
+<span class="fc" id="L144">            Station other = (Station) o;</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">            if (other.name.equals(name)) {</span>
+<span class="fc" id="L146">                return true;</span>
+            }
+        }
+<span class="fc" id="L149">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

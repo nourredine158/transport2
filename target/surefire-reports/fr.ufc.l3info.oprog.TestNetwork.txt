@@ -1,0 +1,44 @@
+-------------------------------------------------------------------------------
+Test set: fr.ufc.l3info.oprog.TestNetwork
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 10, Skipped: 0, Time elapsed: 0.119 s <<< FAILURE! - in fr.ufc.l3info.oprog.TestNetwork
+testGetStationByLineAndNumber(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0.02 s  <<< ERROR!
+java.io.FileNotFoundException: .\target\classes\csv\sapporo.csv (Le chemin d’accès spécifié est introuvable)
+	at fr.ufc.l3info.oprog.TestNetwork.testGetStationByLineAndNumber(TestNetwork.java:149)
+
+testGetLines(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0 s  <<< ERROR!
+java.io.FileNotFoundException: .\target\classes\csv\test1Ligne.csv (Le chemin d’accès spécifié est introuvable)
+	at fr.ufc.l3info.oprog.TestNetwork.testGetLines(TestNetwork.java:137)
+
+testDoubleKilo(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0.016 s  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<java.lang.NumberFormatException> but was<java.io.FileNotFoundException>
+	at fr.ufc.l3info.oprog.TestNetwork.testDoubleKilo(TestNetwork.java:180)
+
+testInitialize(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0 s  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<fr.ufc.l3info.oprog.Network$FileFormatException> but was<java.io.FileNotFoundException>
+	at fr.ufc.l3info.oprog.TestNetwork.testInitialize(TestNetwork.java:60)
+
+testIntNumero(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0 s  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<java.lang.NumberFormatException> but was<java.io.FileNotFoundException>
+	at fr.ufc.l3info.oprog.TestNetwork.testIntNumero(TestNetwork.java:173)
+
+testInitialize1(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0 s  <<< ERROR!
+java.io.FileNotFoundException: .\target\classes\csv\testSansNumero.csv (Le chemin d’accès spécifié est introuvable)
+	at fr.ufc.l3info.oprog.TestNetwork.testInitialize1(TestNetwork.java:98)
+
+testInitialize2(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0 s  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<fr.ufc.l3info.oprog.Network$FileFormatException> but was<java.io.FileNotFoundException>
+	at fr.ufc.l3info.oprog.TestNetwork.testInitialize2(TestNetwork.java:112)
+
+testInitialize3(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0 s  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<fr.ufc.l3info.oprog.Network$FileFormatException> but was<java.io.FileNotFoundException>
+	at fr.ufc.l3info.oprog.TestNetwork.testInitialize3(TestNetwork.java:120)
+
+testInitialize4(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0 s  <<< ERROR!
+java.lang.Exception: Unexpected exception, expected<fr.ufc.l3info.oprog.Network$InvalidNetworkException> but was<java.io.FileNotFoundException>
+	at fr.ufc.l3info.oprog.TestNetwork.testInitialize4(TestNetwork.java:127)
+
+testGetStationByName(fr.ufc.l3info.oprog.TestNetwork)  Time elapsed: 0 s  <<< ERROR!
+java.io.FileNotFoundException: .\target\classes\csv\sapporo.csv (Le chemin d’accès spécifié est introuvable)
+	at fr.ufc.l3info.oprog.TestNetwork.testGetStationByName(TestNetwork.java:161)
+

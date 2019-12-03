@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileFormatException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Transport</a> &gt; <a href="index.source.html" class="el_package">fr.ufc.l3info.oprog</a> &gt; <span class="el_source">FileFormatException.java</span></div><h1>FileFormatException.java</h1><pre class="source lang-java linenums">package fr.ufc.l3info.oprog;
+
+import java.io.File;
+
+/**
+ * Exception class describing file format exception.
+ * Thrown during Network initialization.
+ */
+public class FileFormatException extends Exception {
+
+    /**
+     * Line of the file in which the error is located. Starts at 1.
+     */
+    int line;
+
+    /**
+     * Constructor for the exception.
+     * @param f the file whose format is incorrect.
+     * @param l the line in the file that is incorrect.
+     */
+    public FileFormatException(File f, int l) {
+<span class="nc" id="L22">        super(&quot;Format error in CSV file &quot; + f + &quot; on line &quot; + l);</span>
+<span class="nc" id="L23">        this.line = l;</span>
+<span class="nc" id="L24">    }</span>
+
+    /**
+     * Getter for the line number.
+     * @return an integer representing the line number.
+     */
+    public int getLineNumber() {
+<span class="nc" id="L31">        return line;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

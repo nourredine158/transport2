@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Network.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Transport</a> &gt; <a href="index.source.html" class="el_package">fr.ufc.l3info.oprog</a> &gt; <span class="el_source">Network.java</span></div><h1>Network.java</h1><pre class="source lang-java linenums">package fr.ufc.l3info.oprog;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+import java.lang.String;
+
+public class Network {
+
+    /**
+     * Exception class describing file format exception.
+     * Thrown during Network initialization.
+     */
+    public class FileFormatException extends Exception {
+
+        /**
+         * Line of the file in which the error is located. Starts at 1.
+         */
+        int line;
+
+        /**
+         * Constructor for the exception.
+         *
+         * @param f the file whose format is incorrect.
+         * @param l the line in the file that is incorrect.
+         */
+<span class="fc" id="L29">        public FileFormatException(File f, int l) {</span>
+<span class="fc" id="L30">            super(&quot;Format error in CSV file &quot; + f + &quot; on line &quot; + l);</span>
+<span class="fc" id="L31">            this.line = l;</span>
+<span class="fc" id="L32">        }</span>
+
+        /**
+         * Getter for the line number.
+         *
+         * @return an integer representing the line number.
+         */
+        public int getLineNumber() {
+<span class="fc" id="L40">            return line;</span>
+        }
+    }
+
+    /**
+     * Exception class describing that an invalid network is detected.
+     * Thrown during Network initialization.
+     */
+<span class="fc" id="L48">    public class InvalidNetworkException extends Exception {</span>
+
+        // Does nothing special. Just signals an error of this kind.
+
+    }
+
+    protected HashSet&lt;Station&gt; reseau;
+
+<span class="fc" id="L56">    public Network() {</span>
+<span class="fc" id="L57">        HashSet&lt;Station&gt; reseau = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L58">        this.reseau = reseau;</span>
+<span class="fc" id="L59">    }</span>
+
+    public void initialize(File csv) throws IOException, FileFormatException, InvalidNetworkException {
+<span class="fc" id="L62">        BufferedReader br = new BufferedReader(new FileReader(csv));</span>
+        String line;
+
+<span class="fc" id="L65">        int numLigneFichier = 1;</span>
+
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        while ((line = br.readLine()) != null) {</span>
+
+
+<span class="fc" id="L70">            line.trim();</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">            if (line.length() == 0) {</span>
+<span class="fc" id="L72">                continue;</span>
+            }
+
+<span class="fc" id="L75">            char[] chaine = line.toCharArray();</span>
+<span class="fc" id="L76">            int nbrVirgule = 0;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">            for (char output : chaine) {</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">                if (output == ',') {</span>
+<span class="fc" id="L79">                    nbrVirgule++;</span>
+                }
+            }
+
+
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (nbrVirgule != 3) {</span>
+<span class="fc" id="L85">                throw new InvalidNetworkException();</span>
+            }
+
+
+<span class="fc" id="L89">            line = line.replaceAll(&quot;\\s&quot;, &quot;&quot;);</span>
+
+
+<span class="fc" id="L92">            int longueurChaine = line.length();</span>
+<span class="fc" id="L93">            int indexPremier = line.indexOf(',');</span>
+
+
+            //TEST Type!!!!!
+
+
+<span class="fc" id="L99">            String station = line.substring(0, indexPremier);</span>
+
+<span class="fc bfc" id="L101" title="All 2 branches covered.">            if (station.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L102">                throw new FileFormatException(csv, numLigneFichier);</span>
+            }
+
+<span class="fc" id="L105">            String numeroS = line.substring(indexPremier + 1, longueurChaine);</span>
+<span class="fc" id="L106">            int indexSecond = numeroS.indexOf(',');</span>
+<span class="fc" id="L107">            numeroS = numeroS.substring(0, indexSecond);</span>
+
+<span class="fc bfc" id="L109" title="All 2 branches covered.">            if (numeroS.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L110">                throw new FileFormatException(csv, numLigneFichier);</span>
+            }
+
+            int numero;
+            try {
+<span class="fc" id="L115">                numero = Integer.parseInt(numeroS);</span>
+<span class="fc" id="L116">            } catch (NumberFormatException e) {</span>
+<span class="fc" id="L117">                throw new NumberFormatException();</span>
+<span class="fc" id="L118">            }</span>
+
+
+<span class="fc" id="L121">            String ligne = line.substring(indexPremier + indexSecond + 2, longueurChaine);</span>
+
+
+<span class="fc" id="L124">            int indexTroisieme = ligne.indexOf(',');</span>
+
+            //TEST Type!!!!!
+<span class="pc bpc" id="L127" title="1 of 4 branches missed.">            if (ligne.equals(&quot;&quot;) || ligne.substring(0, 1).contains(&quot;,&quot;)) {</span>
+<span class="fc" id="L128">                throw new FileFormatException(csv, numLigneFichier);</span>
+            }
+
+
+<span class="fc" id="L132">            ligne = ligne.substring(0, indexTroisieme);</span>
+
+
+<span class="fc" id="L135">            String kilometreS = line.substring(indexPremier + indexSecond + indexTroisieme + 3, longueurChaine);</span>
+
+<span class="fc bfc" id="L137" title="All 2 branches covered.">            if (kilometreS.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L138">                throw new FileFormatException(csv, numLigneFichier);</span>
+            }
+
+            double kilometre;
+            try {
+<span class="fc" id="L143">                kilometre = Double.parseDouble(kilometreS);</span>
+<span class="fc" id="L144">            } catch (NumberFormatException e) {</span>
+<span class="fc" id="L145">                throw new NumberFormatException();</span>
+<span class="fc" id="L146">            }</span>
+
+<span class="fc" id="L148">            Station s = new Station(station, ligne, numero, kilometre);</span>
+
+<span class="fc" id="L150">            boolean ajoute = true;</span>
+
+<span class="fc bfc" id="L152" title="All 2 branches covered.">            for (Station st : reseau) {</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">                if (s.equals(st)) {</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">                    if (!st.getLines().contains(ligne)) {</span>
+<span class="fc" id="L155">                        System.out.println(&quot;ligne : -&quot; + station + &quot; &quot; + ligne + &quot; &quot; + numero + &quot; &quot; + kilometre);</span>
+<span class="fc" id="L156">                        st.addLine(ligne, numero, kilometre);</span>
+<span class="fc" id="L157">                        ajoute = false;</span>
+                    } else {
+<span class="fc" id="L159">                        ajoute = false;</span>
+                    }
+                }
+<span class="fc" id="L162">            }</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">            if (ajoute == true) {</span>
+<span class="fc" id="L164">                System.out.println(&quot;ligne : -&quot; + station + &quot; &quot; + ligne + &quot; &quot; + numero + &quot; &quot; + kilometre);</span>
+<span class="fc" id="L165">                reseau.add(s);</span>
+            }
+<span class="fc" id="L167">            numLigneFichier++;</span>
+<span class="fc" id="L168">        }</span>
+<span class="fc" id="L169">        br.close();</span>
+<span class="fc" id="L170">    }</span>
+
+    public Set&lt;String&gt; getLines() {
+<span class="fc" id="L173">        Set&lt;String&gt; lines = new HashSet&lt;&gt;();</span>
+
+<span class="fc bfc" id="L175" title="All 2 branches covered.">        if (!reseau.isEmpty()) {</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">            for (Station s : reseau) {</span>
+<span class="fc" id="L177">                lines.addAll(s.getLines());</span>
+<span class="fc" id="L178">            }</span>
+        } else {
+<span class="fc" id="L180">            return null;</span>
+        }
+<span class="fc" id="L182">        return lines;</span>
+    }
+
+    public Station getStationByName(String name) {
+<span class="fc bfc" id="L186" title="All 2 branches covered.">        for (Station s : reseau) {</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">            if (s.getName().equals(name)) {</span>
+<span class="fc" id="L188">                return s;</span>
+            }
+<span class="fc" id="L190">        }</span>
+<span class="fc" id="L191">        return null;</span>
+    }
+
+    public Station getStationByLineAndNumber(String line, int number) {
+
+<span class="fc bfc" id="L196" title="All 2 branches covered.">        for (Station s : reseau) {</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">            for (String lineInKeySet : s.getLines()) {</span>
+<span class="fc bfc" id="L198" title="All 4 branches covered.">                if (line.equals(lineInKeySet) &amp;&amp; s.getNumberForLine(line) == number) {</span>
+<span class="fc" id="L199">                    return s;</span>
+                }
+<span class="fc" id="L201">            }</span>
+<span class="fc" id="L202">        }</span>
+<span class="fc" id="L203">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
